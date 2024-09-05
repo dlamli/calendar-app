@@ -6,7 +6,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "sweetalert2/dist/sweetalert2.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { useCalendarForm } from "src/hooks";
+import { useCalendarForm, useUiStore } from "src/hooks";
 import { customStyles, initialFormValues } from "src/utils";
 
 registerLocale("es", es);
@@ -17,16 +17,17 @@ export const CalendarModal = () => {
     const {
         formValues,
         titleClass,
-        isOpen,
         handleRequestClose,
         handleDateChange,
         handleInputChange,
         handleSubmit,
     } = useCalendarForm(initialFormValues);
 
+    const { isDateModalOpen } = useUiStore();
+
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={isDateModalOpen}
             onRequestClose={handleRequestClose}
             style={customStyles}
             className="modal"

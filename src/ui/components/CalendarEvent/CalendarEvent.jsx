@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 export const CalendarEvent = ({ event }) => {
     const { title, user } = event;
     return (
@@ -8,9 +6,4 @@ export const CalendarEvent = ({ event }) => {
             <span> - {user.name}</span>
         </>
     );
-};
-
-CalendarEvent.propTypes = {
-    title: PropTypes.string,
-    user: PropTypes.object,
 };

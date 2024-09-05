@@ -1,11 +1,13 @@
 import { differenceInSeconds } from "date-fns";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useUiStore, useCalendarStore } from "src/hooks";
 
 export const useCalendarForm = (initialValues) => {
-    const [isOpen, setIsOpen] = useState(true);
     const [formSubmited, setFormSubmited] = useState(false);
     const [formValues, setFormValues] = useState(initialValues);
+    const { closeDateModal } = useUiStore();
+    const { activeEvent, startSavingEvent } = useCalendarStore();
 
     const titleClass = useMemo(() => {
         if (!formSubmited) {
@@ -14,6 +16,12 @@ export const useCalendarForm = (initialValues) => {
 
         return formValues.title.length > 0 ? "is-valid" : "is-invalid";
     }, [formValues.title, formSubmited]);
+
+    useEffect(() => {
+        if (activeEvent !== null) {
+            setFormValues({ ...activeEvent });
+        }
+    }, [activeEvent]);
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -29,7 +37,7 @@ export const useCalendarForm = (initialValues) => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setFormSubmited(true);
 
@@ -48,17 +56,20 @@ export const useCalendarForm = (initialValues) => {
         }
 
         if (formValues.title.length <= 0) return;
+
+        await startSavingEvent(formValues);
+        closeDateModal();
     };
 
-    const handleRequestClose = () => {
-        setIsOpen(false);
-    };
+    const handleRequestClose = () => closeDateModal();
 
     return {
+        //Properties
         ...formValues,
         formValues,
-        isOpen,
         titleClass,
+
+        // Methods
         handleInputChange,
         handleDateChange,
         handleSubmit,

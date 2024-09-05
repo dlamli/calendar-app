@@ -105,3 +105,23 @@
   font-weight: 600;
   text-decoration: none;
 }
+
+.fab {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  bottom: 25px;
+  padding: 25px;
+  position: fixed;
+  right: 25px;
+}
+
+.fab-danger {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  bottom: 25px;
+  padding: 25px;
+  position: fixed;
+  right: 100px;
+}
