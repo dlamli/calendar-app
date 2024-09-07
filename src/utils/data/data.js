@@ -32,4 +32,21 @@ const initialFormValues = {
     end: addHours(new Date(), 2),
 };
 
-export { customStyles, initialFormValues, events };
+const loginFormFields = {
+    loginEmail: "",
+    loginPassword: "",
+};
+const registerFormFields = {
+    registerName: "",
+    registerEmail: "",
+    registerPassword: "",
+    registerPasswordRepeat: "",
+};
+
+export {
+    customStyles,
+    initialFormValues,
+    events,
+    loginFormFields,
+    registerFormFields,
+};
