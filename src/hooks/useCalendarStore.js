@@ -53,7 +53,7 @@ export const useCalendarStore = () => {
             const events = convertEventsToDate(data.events);
             dispatch(handleLoadEvent(events));
         } catch (error) {
-            Swal.fire("Error ocurred loading event", error.response.data?.msg, "error");
+            console.log(error.message);
         }
     };
 

@@ -88,7 +88,7 @@ export const useAuthStore = () => {
             localStorage.setItem("token-init-date", new Date().getTime());
             dispatch(handleLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
-            // localStorage.clear();
+            localStorage.clear();
             dispatch(handleLogout());
         }
     };
