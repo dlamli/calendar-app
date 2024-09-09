@@ -5,7 +5,7 @@ import {
     handleClearErrorMessage,
     handleLogin,
     handleLogout,
-    handleRegister,
+    handleLogoutCalendar,
 } from "src/store";
 import Swal from "sweetalert2";
 
@@ -32,9 +32,10 @@ export const useAuthStore = () => {
         }
     };
 
-    const starLogout = () => {
+    const startLogout = () => {
         localStorage.clear();
         dispatch(handleLogout());
+        dispatch(handleLogoutCalendar());
     };
 
     const startRegister = async ({ name, email, password }) => {
@@ -46,20 +47,21 @@ export const useAuthStore = () => {
                 password,
             });
 
-            if (data) {
-                dispatch(
-                    handleRegister({
-                        uid: data.uid,
-                        name: data.name,
-                        token: data.token,
-                    })
-                );
-                Swal.fire(
-                    "Account registration",
-                    "Registration successful",
-                    "success"
-                );
-            }
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("token-init-date", new Date().getTime());
+            dispatch(
+                handleLogin({
+                    uid: data.uid,
+                    name: data.name,
+                    token: data.token,
+                })
+            );
+
+            Swal.fire(
+                "Account registration",
+                "Registration successful",
+                "success"
+            );
         } catch ({ response }) {
             dispatch(
                 handleLogout(
@@ -76,18 +78,17 @@ export const useAuthStore = () => {
     const checkAuthToken = async () => {
         const token = localStorage.getItem("token");
 
-        if (token) {
+        if (!token) {
             dispatch(handleLogout());
         }
 
         try {
             const { data } = await calendarApi.get("/auth/renew");
-            console.log({ data });
-            localStorage.setItem("token", data.token);
+            localStorage.setItem("token", token);
             localStorage.setItem("token-init-date", new Date().getTime());
             dispatch(handleLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
-            localStorage.clear();
+            // localStorage.clear();
             dispatch(handleLogout());
         }
     };
@@ -99,7 +100,7 @@ export const useAuthStore = () => {
         errorMessage,
         // Methods
         checkAuthToken,
-        starLogout,
+        startLogout,
         startLogin,
         startRegister,
     };

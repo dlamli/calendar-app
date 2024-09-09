@@ -19,11 +19,6 @@ export const authSlice = createSlice({
             state.user = payload;
             state.errorMessage = undefined;
         },
-        handleRegister: (state, { payload }) => {
-            state.status = AUTHENTICATE;
-            state.user = payload;
-            state.errorMessage = undefined;
-        },
         handleLogout: (state, { payload }) => {
             state.status = NOT_AUTHENTICATED;
             state.user = {};
@@ -38,7 +33,6 @@ export const authSlice = createSlice({
 export const {
     handleChecking,
     handleLogin,
-    handleRegister,
     handleLogout,
     handleClearErrorMessage,
 } = authSlice.actions;

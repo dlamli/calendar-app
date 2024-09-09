@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { useAuthStore } from "src/hooks";
 
-import { CalendarPage, LoginPage } from "src/pages";
+import { CalendarPage, LoadingPage, LoginPage } from "src/pages";
 import {
     AUTH_LOGIN,
     AUTH_PATH,
@@ -16,9 +16,6 @@ import {
     HOME_PATH,
     NOT_AUTHENTICATED,
 } from "src/utils";
-
-// const authStatus = "not_authenticated";
-// const authStatus = "authenticated";
 
 export const AppRouter = () => {
     const { checkAuthToken, status } = useAuthStore();
@@ -28,7 +25,7 @@ export const AppRouter = () => {
     }, []);
 
     if (status === CHECKING) {
-        return <h3>Loading....</h3>;
+        return <LoadingPage />;
     }
 
     const router = createBrowserRouter(

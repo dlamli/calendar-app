@@ -59,6 +59,7 @@ export const useCalendarForm = (initialValues) => {
 
         await startSavingEvent(formValues);
         closeDateModal();
+        setFormSubmited(false);
     };
 
     const handleRequestClose = () => closeDateModal();

@@ -19,7 +19,7 @@ const events = [
         end: addHours(new Date(), 2),
         bgColor: "#fafafa",
         user: {
-            _id: 123,
+            id: 123,
             name: "John",
         },
     },

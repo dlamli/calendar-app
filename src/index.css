@@ -125,3 +125,16 @@
   position: fixed;
   right: 100px;
 }
+
+.loading-bg {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.spinner-loading {
+  width: 3.5rem;
+  height: 3.5rem;
+}
